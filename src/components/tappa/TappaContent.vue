@@ -2,14 +2,6 @@
 defineProps({
   data: Object,
 });
-
-import imgPlaceholder from "../../assets/image-placeholder.jpg";
-
-// const emit = defineEmits(["openGame"]);
-
-// function openGame() {
-//   emit("openGame");
-// }
 </script>
 
 <template>
@@ -23,25 +15,27 @@ import imgPlaceholder from "../../assets/image-placeholder.jpg";
           {{ item }}
         </p>
       </div>
-      <div id="tappa-image">
-        <!-- <img :src="imgPlaceholder" alt="" /> -->
-      </div>
+      <div id="tappa-image"></div>
     </div>
+    <!-- passed in open game button -->
     <slot></slot>
-    <!-- <button @click="openGame">Game</button> -->
   </div>
 </template>
 
 <style scoped>
 .wrapper {
   @apply relative w-full h-full;
-  @apply flex flex-col justify-stretch items-stretch;
-  max-height: calc(100% - 4rem);
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
 
 #tappa-contenuto {
   @apply bg-white flex-grow;
   @apply grid grid-cols-2;
+
+  max-height: 100%;
+
+  overflow: clip;
 }
 
 #tappa-text {

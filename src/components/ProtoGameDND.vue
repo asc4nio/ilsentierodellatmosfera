@@ -1,7 +1,14 @@
 <script setup>
+/**
+ * https://www.youtube.com/watch?v=-kZLD40d-tI
+ * https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+ *
+ * touch doc:
+ * https://stackoverflow.com/questions/68000255/html-drag-and-drop-on-touchscreen
+ */
+
 import { ref, watch } from "vue";
 const emit = defineEmits(["completed"]);
-// const props = defineProps(["options", "targets"]);
 
 const options = ref([
   {
@@ -19,11 +26,11 @@ const options = ref([
     target: "target-3",
     placed: false,
   },
-  // {
-  //   id: "option-4",
-  //   target: "target-3",
-  //   placed: false,
-  // },
+  {
+    id: "option-4",
+    target: "target-3",
+    placed: false,
+  },
 ]);
 const targets = ref([
   {
@@ -93,7 +100,7 @@ const events = {
       console.log("events.allowTouchDrop", events.allowTouchDrop.value);
     }
   },
-  drop: (event, options, targets) => {
+  drop: (event) => {
     // remove ghost
     ghost.remove();
 
@@ -182,11 +189,11 @@ const ghost = {
 const game = {
   dropItem: (data, options, targets) => {
     // mark option as placed
-    const option = options.find((item) => item.id == data.value.id);
+    const option = options.value.find((item) => item.id == data.value.id);
     option.placed = true;
 
     // add item to target.content
-    const target = targets.find((item) => item.id == data.value.target);
+    const target = targets.value.find((item) => item.id == data.value.target);
     target.content.push(data.value);
 
     // check if target is solved
@@ -194,14 +201,16 @@ const game = {
   },
   solveTarget: (data, options, targets) => {
     // get all options in options array wich has targe == targetId
-    const targetOptions = options.filter((item) => item.target == data.target);
+    const targetOptions = options.value.filter(
+      (item) => item.target == data.target
+    );
     // check if all targetOptions are also placed == true
     const solved = targetOptions.every((item) => item.placed == true);
 
     if (solved) {
       console.warn(data.target, "solved");
 
-      const target = targets.find((item) => item.id == data.target);
+      const target = targets.value.find((item) => item.id == data.target);
       target.solved = true;
       // target.content.push(data);
 
@@ -211,7 +220,7 @@ const game = {
   },
   validateGame: (options, targets) => {
     // check if all options attribute placed is true
-    const unplacedItems = options.find((item) => !item.placed);
+    const unplacedItems = options.value.find((item) => !item.placed);
     if (!unplacedItems) game.complete();
 
     // else alert("Please place all options");
@@ -226,8 +235,6 @@ const game = {
 <template>
   <!-- OPTIONS -->
   <div id="draggable-options" class="mb-8">
-    <!-- <slot v-for="optionData in options" :name="optionData.id"></slot> -->
-
     <!-- each option -->
     <template v-for="optionData in options" :key="optionData.id">
       <div
@@ -246,7 +253,6 @@ const game = {
         @touchmove="events.drag($event)"
         @touchend="events.drop($event, options, targets, emit)"
       >
-        <slot> SLOT INNER </slot>
         {{ optionData.id }}
       </div>
     </template>

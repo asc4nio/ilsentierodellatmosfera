@@ -1,92 +1,35 @@
 <script setup>
 import { ref, watch } from "vue";
-const props = defineProps(["title"]);
+const props = defineProps({
+  title: {
+    type: String,
+    default: "Game title",
+  },
+});
 
-import DndOption from "./dnd/DndOption.vue";
-import DndTarget from "./dnd/DndTarget.vue";
+import DndOption from "./DndOption.vue";
+import DndTarget from "./DndTarget.vue";
 
-const options = ref([]);
-const targets = ref([]);
-
-// init data
-const optionsList = [
-  "Sonniblick",
-  "Mt. Cimone",
-  "Amben",
-  "Jungfraujoch",
-  "Mauna Loa",
-  "Chacaltaya",
-  "Izana",
-  "Assekrem",
-  "Mt. Kenya",
-  "La Réunion",
-  "Zugspitze",
-  "Mt. Waliguan",
-  "NCO-P",
-];
-const targetList = [
-  "3106 m",
-  "2165 m",
-  "2071 m",
-  "3560 m",
-  "3397 m",
-  "5240 m",
-  "2377 m",
-  "2728 m",
-  "3678 m",
-  "2160 m",
-  "2962 m",
-  "3810 m",
-  "5079 m",
-];
-for (let i = 0; i < optionsList.length; i++) {
-  let optionData = {
-    id: "option-" + i,
-    target: "target-" + i,
-    placed: false,
-    visual: {
-      text: optionsList[i],
-    },
-  };
-
-  let targetData = {
-    id: "target-" + i,
-    content: [],
-    solved: false,
-    visual: {
-      text: targetList[i],
-    },
-  };
-
-  options.value.push(optionData);
-  targets.value.push(targetData);
-}
-
-/*
 const options = ref([
   {
     id: "option-1",
     target: "target-1",
     placed: false,
-    visual: {
-      text: "Amben",
-    },
   },
   {
     id: "option-2",
     target: "target-2",
     placed: false,
-    visual: {
-      text: "Sonniblick",
-    },
   },
   {
     id: "option-3",
     target: "target-3",
     placed: false,
-    visual: {
-      text: "Jungfraujoch",
-    },
+  },
+  {
+    id: "option-4",
+    target: "target-3",
+    placed: false,
   },
 ]);
 const targets = ref([
@@ -94,28 +37,18 @@ const targets = ref([
     id: "target-1",
     content: [],
     solved: false,
-    visual: {
-      text: "3106 m",
-    },
   },
   {
     id: "target-2",
     content: [],
     solved: false,
-    visual: {
-      text: "2071 m",
-    },
   },
   {
     id: "target-3",
     content: [],
     solved: false,
-    visual: {
-      text: "3560 m",
-    },
   },
 ]);
-*/
 </script>
 
 <template>
@@ -128,11 +61,11 @@ const targets = ref([
           <DndTarget :data="targetData" :options="options" :targets="targets">
             <div class="target">
               <p>
-                {{ targetData.visual.text }}
+                {{ targetData.id }}
               </p>
               <template v-for="placedOption in targetData.content">
                 <!-- <p>{{ placedOption.id }}</p> -->
-                <p>{{ placedOption.visual.text }}</p>
+                <p>{{ placedOption.id }}</p>
               </template>
               <p v-if="targetData.solved">SOLVED</p>
             </div>
@@ -156,7 +89,7 @@ const targets = ref([
             :targets="targets"
           >
             <div class="option">
-              <p>{{ optionData.visual.text }}</p>
+              <p>{{ optionData.id }}</p>
             </div>
           </DndOption>
         </template>

@@ -16,23 +16,24 @@
 
 @layer base {
   body {
-    /* @apply bg-black */
-    font-size: 1.75rem;
+    font-size: 1vw;
   }
   h1{
-    @apply text-6xl font-bold mb-4
+    @apply text-[2em] font-bold 
+    
   }
   h2{
-    @apply text-4xl font-bold
+    @apply text-[1.75em] font-bold
   }
   h3{
-    @apply text-2xl font-bold
+    @apply text-[1.5em] font-bold
   }
   p{
-    @apply mb-2;
+    @apply text-[1.5em];
+    
   }
   button {
-    @apply px-8 py-2 rounded-full bg-gray-800 text-white font-bold;
+    @apply text-[1.5em] px-[2em] py-[.5em] rounded-full bg-gray-800 text-white font-bold;
   }
 }
 

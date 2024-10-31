@@ -1,49 +1,6 @@
-<script setup>
-import { ref, watch } from "vue";
-const emit = defineEmits(["completed"]);
-// const props = defineProps(["options", "targets"]);
+import { ref } from "vue";
 
-const options = ref([
-  {
-    id: "option-1",
-    target: "target-1",
-    placed: false,
-  },
-  {
-    id: "option-2",
-    target: "target-2",
-    placed: false,
-  },
-  {
-    id: "option-3",
-    target: "target-3",
-    placed: false,
-  },
-  // {
-  //   id: "option-4",
-  //   target: "target-3",
-  //   placed: false,
-  // },
-]);
-const targets = ref([
-  {
-    id: "target-1",
-    content: [],
-    solved: false,
-  },
-  {
-    id: "target-2",
-    content: [],
-    solved: false,
-  },
-  {
-    id: "target-3",
-    content: [],
-    solved: false,
-  },
-]);
-
-const events = {
+export const events = {
   draggedItemData: ref(null),
   allowTouchDrop: ref(null),
   click: (event) => {
@@ -128,7 +85,7 @@ const events = {
   },
 };
 
-const ghost = {
+export const ghost = {
   init: (event) => {
     let dragGhost = document.createElement("div");
     dragGhost.setAttribute("id", "drag-ghost");
@@ -179,10 +136,15 @@ const ghost = {
   // },
 };
 
-const game = {
+export const game = {
+  state: ref("playing"),
   dropItem: (data, options, targets) => {
+    console.log("dropitem", options, targets);
+
     // mark option as placed
     const option = options.find((item) => item.id == data.value.id);
+    console.log("option", option);
+
     option.placed = true;
 
     // add item to target.content
@@ -218,74 +180,6 @@ const game = {
   },
   complete: () => {
     console.log("COMPLETED");
-    emit("completed");
+    game.state.value = "completed";
   },
 };
-</script>
-
-<template>
-  <!-- OPTIONS -->
-  <div id="draggable-options" class="mb-8">
-    <!-- <slot v-for="optionData in options" :name="optionData.id"></slot> -->
-
-    <!-- each option -->
-    <template v-for="optionData in options" :key="optionData.id">
-      <div
-        v-if="!optionData.placed"
-        :id="optionData.id"
-        class="draggable-item"
-        draggable="true"
-        @click="events.click($event)"
-        @dragstart="events.dragstart($event, optionData)"
-        @drag="events.drag($event)"
-        @drop="events.drop($event, options, targets, emit)"
-        @dragend="ghost.remove"
-        @dragenter.prevent
-        @dragover.prevent
-        @touchstart="events.dragstart($event, optionData)"
-        @touchmove="events.drag($event)"
-        @touchend="events.drop($event, options, targets, emit)"
-      >
-        <slot> SLOT INNER </slot>
-        {{ optionData.id }}
-      </div>
-    </template>
-  </div>
-
-  <!-- TARGETS -->
-  <div id="draggable-targets">
-    <!-- each target -->
-    <template v-for="targetData in targets" :key="targetData.id">
-      <div
-        class="draggable-target"
-        :id="targetData.id"
-        @drop="events.drop($event, options, targets, emit)"
-        @dragenter.prevent
-        @dragover.prevent
-      >
-        <!-- :draggable="!targetData.solved" -->
-        {{ targetData.id }}
-
-        <template v-for="placedOption in targetData.content">
-          <p>{{ placedOption.id }}</p>
-        </template>
-
-        <p v-if="targetData.solved">SOLVED</p>
-      </div>
-    </template>
-  </div>
-</template>
-
-<style scoped>
-:global(#drag-ghost) {
-  @apply min-h-20 min-w-20 bg-red-500 pointer-events-none select-none;
-  @apply absolute z-10;
-}
-
-.draggable-item {
-  @apply p-2 border border-black touch-auto;
-}
-.draggable-target {
-  @apply p-2 border border-black min-h-10 min-w-10;
-}
-</style>

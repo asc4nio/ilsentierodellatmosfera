@@ -1,20 +1,9 @@
 <script setup>
-const emit = defineEmits(["repeat", "nextTappa"]);
-import { AppState } from "../../stores/appStore";
+import { AppState, TappaState, Nav } from "../../stores/appStore";
 
 import { ref } from "vue";
 
 const isExplaination = ref(false);
-
-function repeatTappa() {
-  //   AppState.currentView = "tappa";
-  emit("repeat");
-}
-
-function nextTappa() {
-  emit("nextTappa");
-}
-
 function toggleExplaination() {
   isExplaination.value = !isExplaination.value;
 }
@@ -28,9 +17,9 @@ function toggleExplaination() {
       SPIEGAZIONE
     </button>
 
-    <button @click="repeatTappa">Ripeti tappa</button>
-    <button @click="nextTappa">Prossima Tappa</button>
-    <button @click="AppState.goToMap">Ritorna alla Mappa</button>
+    <button @click="TappaState.resetContent">Ripeti tappa</button>
+    <button @click="Nav.nextTappa">Prossima Tappa</button>
+    <button @click="Nav.goToMap">Ritorna alla Mappa</button>
   </div>
 
   <div id="explaination" v-if="isExplaination">
