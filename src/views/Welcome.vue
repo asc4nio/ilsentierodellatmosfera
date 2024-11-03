@@ -3,10 +3,17 @@ import { AppState, TappaState, Nav } from "../stores/appStore";
 import { ref } from "vue";
 import Credits from "../components/Credits.vue";
 
+import { openFullscreen, closeFullscreen } from "../components/utils";
+
 const isCredits = ref(false);
 
 function toggleCredits() {
   isCredits.value = !isCredits.value;
+}
+
+function start() {
+  openFullscreen();
+  Nav.goToMap();
 }
 </script>
 
@@ -19,7 +26,8 @@ function toggleCredits() {
         <h1 class="mb-2">Il sentiero dell’atmosfera</h1>
         <p class="mb-4">Un percorso di speranza per il futuro</p>
       </div>
-      <button @click="Nav.goToMap">Inizia</button>
+      <button @click="start">Inizia</button>
+      <!-- <button @click="Nav.goToMap">Inizia</button> -->
     </div>
     <!-- SPONSOR BOX -->
     <div class="sponsor">

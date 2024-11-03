@@ -5,7 +5,7 @@ import { TAPPE } from "../../../config/tappe.js";
 import { ref, watch } from "vue";
 import draggable from "vuedraggable";
 
-import { submit, randomizeOrder, log } from "./SortGame.js";
+import { game } from "./Sort.js";
 
 // const data = TAPPE[TappaState.currentIndex];
 
@@ -15,14 +15,14 @@ for (let i = 0; i < optionsCount; i++) {
   options.value.push({ name: "DraggableItem", id: i });
 }
 
-randomizeOrder(options);
+game.randomizeOrder(options);
 </script>
 
 <template>
   <draggable
     class="list"
     :list="options"
-    @change="log"
+    @change="game.log"
     itemKey="id"
     ghostClass="sortable-ghost-dragged"
     chosenClass="sortable-chosen"
@@ -33,7 +33,7 @@ randomizeOrder(options);
       <div class="draggable-item">{{ element.name }} {{ element.id }}</div>
     </template>
   </draggable>
-  <button @click="submit(options)">Submit</button>
+  <button @click="game.submit(options)">Submit</button>
 </template>
 
 <style scoped>

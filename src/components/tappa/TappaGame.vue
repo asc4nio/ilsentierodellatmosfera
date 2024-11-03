@@ -6,7 +6,6 @@ import { TappaState } from "../../stores/appStore";
 import GameSort from "../../components/games/sort/GameSort.vue";
 import GameDND from "../../components/games/dnd/GameDND.vue";
 import GameQuiz from "../../components/games/quiz/GameQuiz.vue";
-// import GameQuestion from "../../components/GameQuestion.vue";
 
 import Game01 from "../games/Game01.vue";
 import Game02 from "../games/Game02.vue";
