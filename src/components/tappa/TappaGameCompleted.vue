@@ -34,11 +34,11 @@ function toggleExplaination() {
 <style scoped>
 #quiz-completed {
   @apply absolute w-full h-full left-0 top-0;
-  @apply bg-slate-950 text-white flex flex-col justify-center items-center;
+  @apply bg-blue-dark text-white flex flex-col justify-center items-center;
 }
 
 #explaination {
   @apply absolute w-full h-full left-0 top-0;
-  @apply p-8 bg-slate-300 text-black flex flex-col justify-center items-center;
+  @apply p-8 bg-blue-dark text-white flex flex-col justify-center items-center;
 }
 </style>

@@ -22,6 +22,8 @@ onMounted(async () => {
 
 <style scoped>
 main {
-  @apply relative w-full h-full overflow-clip;
+  @apply relative h-full max-h-[100vh] aspect-[16/9];
+  @apply border border-black border-[.1em];
+  @apply bg-white;
 }
 </style>

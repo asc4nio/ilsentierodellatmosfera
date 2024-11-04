@@ -8,6 +8,8 @@ import TappaContent from "../components/tappa/TappaContent.vue";
 import TappaGameCompleted from "../components/tappa/TappaGameCompleted.vue";
 import { onMounted, onUnmounted } from "vue";
 
+import Button from "../components/ui/Button.vue";
+
 const data = TAPPE[TappaState.currentIndex];
 
 onMounted(() => {});
@@ -30,12 +32,13 @@ onUnmounted(() => {
         "
       >
         <TappaContent v-if="!TappaState.isGame" :data="data">
-          <button id="start-game-button" @click="Nav.openGame">
+          <Button :onClick="Nav.openGame"> Vai al gioco </Button>
+          <!-- <button id="start-game-button" @click="Nav.openGame">
             Vai al gioco
-          </button>
+          </button> -->
         </TappaContent>
 
-        <TappaGame v-else :data="data.quiz"></TappaGame>
+        <TappaGame v-else :data="data.game"></TappaGame>
 
         <TappaGameCompleted
           v-if="TappaState.isGameCompleted"
@@ -65,6 +68,6 @@ onUnmounted(() => {
 }
 
 #start-game-button {
-  @apply bg-gray-700 min-h-32 text-4xl;
+  @apply bg-blue-dark min-h-32 text-4xl;
 }
 </style>

@@ -110,7 +110,7 @@ const targets = ref([
 
 /* frame rows */
 #options-panel {
-  @apply bg-gray-200 flex flex-col justify-center items-center p-[2em];
+  @apply bg-off-white  flex flex-col justify-center items-center p-[2em];
 }
 #targets-panel {
   @apply flex flex-col justify-center items-center p-[2em];

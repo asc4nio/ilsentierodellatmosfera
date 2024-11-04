@@ -34,7 +34,10 @@ const games = [
 
 <template>
   <div class="game">
-    <component :is="games[TappaState.currentIndex - 1]"></component>
+    <component
+      :is="games[TappaState.currentIndex - 1]"
+      :data="data"
+    ></component>
 
     <!-- <GameDND></GameDND> -->
     <!-- <GameSort></GameSort> -->

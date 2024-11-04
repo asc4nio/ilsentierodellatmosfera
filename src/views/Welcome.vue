@@ -3,6 +3,8 @@ import { AppState, TappaState, Nav } from "../stores/appStore";
 import { ref } from "vue";
 import Credits from "../components/Credits.vue";
 
+import Button from "../components/ui/Button.vue";
+
 import { openFullscreen, closeFullscreen } from "../components/utils";
 
 const isCredits = ref(false);
@@ -12,7 +14,7 @@ function toggleCredits() {
 }
 
 function start() {
-  openFullscreen();
+  // openFullscreen();
   Nav.goToMap();
 }
 </script>
@@ -23,10 +25,11 @@ function start() {
     <!-- ACTION BOX -->
     <div class="action">
       <div class="logo">
-        <h1 class="mb-2">Il sentiero dell’atmosfera</h1>
-        <p class="mb-4">Un percorso di speranza per il futuro</p>
+        <h1 class="mb-[.5em]">Il sentiero dell’atmosfera</h1>
+        <p class="mb-[1em]">Un percorso di speranza per il futuro</p>
       </div>
-      <button @click="start">Inizia</button>
+      <Button :onClick="start">Inizia</Button>
+      <!-- <button @click="start">Inizia</button> -->
       <!-- <button @click="Nav.goToMap">Inizia</button> -->
     </div>
     <!-- SPONSOR BOX -->
@@ -51,18 +54,19 @@ function start() {
 }
 
 #background {
-  @apply absolute top-0 left-0 w-full h-full z-[-1];
+  @apply absolute top-0 left-0 w-full h-full z-[0];
   @apply bg-cover bg-center;
-  background-image: url("../assets/image-placeholder.jpg");
+  background-image: url("../assets/welcome-bg-placeholder.jpg");
+
+  opacity: 0.3;
 }
 
 .action {
   @apply flex-grow flex flex-col justify-center items-center;
-  /* @apply bg-gray-200 rounded-full; */
 }
 .logo {
   @apply flex flex-col justify-center items-center;
-  @apply bg-gray-400 p-[4em] m-[1em];
+  @apply bg-blue-light p-[4em] m-[1em];
   border-radius: 50%;
 }
 .sponsor {

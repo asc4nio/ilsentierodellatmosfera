@@ -1,121 +1,161 @@
 <script setup>
 import { ref, watch } from "vue";
-const props = defineProps(["title"]);
+
+const props = defineProps(["data"]);
 
 import DndOption from "./dnd/DndOption.vue";
 import DndTarget from "./dnd/DndTarget.vue";
 
-const options = ref([]);
-const targets = ref([]);
+import Game01OptionIcon from "./Game01OptionIcon.vue";
 
-// init data
-const optionsList = [
-  "Sonniblick",
-  "Mt. Cimone",
-  "Amben",
-  "Jungfraujoch",
-  "Mauna Loa",
-  "Chacaltaya",
-  "Izana",
-  "Assekrem",
-  "Mt. Kenya",
-  "La Réunion",
-  "Zugspitze",
-  "Mt. Waliguan",
-  "NCO-P",
-];
-const targetList = [
-  "3106 m",
-  "2165 m",
-  "2071 m",
-  "3560 m",
-  "3397 m",
-  "5240 m",
-  "2377 m",
-  "2728 m",
-  "3678 m",
-  "2160 m",
-  "2962 m",
-  "3810 m",
-  "5079 m",
-];
-for (let i = 0; i < optionsList.length; i++) {
-  let optionData = {
-    id: "option-" + i,
-    target: "target-" + i,
-    placed: false,
+const options = ref([
+  /**
+   * Option: Object
+   * {
+      id: String,
+      target: String,
+      placed: Boolean
+      visual: {
+        text: String
+      }
+  }
+ */
+  {
+    target: "austria",
     visual: {
-      text: optionsList[i],
+      text: "Sonniblick - 3106 m",
     },
-  };
-
-  let targetData = {
-    id: "target-" + i,
-    content: [],
-    solved: false,
+  },
+  {
+    target: "armenia",
     visual: {
-      text: targetList[i],
+      text: "Amberd - 2071 m",
     },
-  };
+  },
+  {
+    target: "swiss",
+    visual: {
+      text: "Jungfraujoch - 3560 m",
+    },
+  },
+  {
+    target: "usa",
+    visual: {
+      text: "Mauna Loa - 3397 m",
+    },
+  },
+  {
+    target: "bolivia",
+    visual: {
+      text: "Chacaltaya - 5240 m",
+    },
+  },
+  {
+    target: "spain",
+    visual: {
+      text: "Izana - 2377 m",
+    },
+  },
+  {
+    target: "algeria",
+    visual: {
+      text: "Assekrem - 2728 m",
+    },
+  },
+  {
+    target: "kenya",
+    visual: {
+      text: "Mt. Kenya - 3678 m",
+    },
+  },
+  {
+    target: "france",
+    visual: {
+      text: "La Réunion - 2160 m",
+    },
+  },
+  {
+    target: "germany",
+    visual: {
+      text: "Zugspitze - 2962 m",
+    },
+  },
+  {
+    target: "china",
+    visual: {
+      text: "Mt. Waliguan - 3810 m",
+    },
+  },
+  {
+    target: "nepal",
+    visual: {
+      text: "NCO-P - 5079 m",
+    },
+  },
+]);
 
-  options.value.push(optionData);
-  targets.value.push(targetData);
+for (let i = 0; i < options.value.length; i++) {
+  options.value[i].id = "option-" + i;
+  options.value[i].placed = false;
 }
 
-/*
-const options = ref([
-  {
-    id: "option-1",
-    target: "target-1",
-    placed: false,
-    visual: {
-      text: "Amben",
-    },
-  },
-  {
-    id: "option-2",
-    target: "target-2",
-    placed: false,
-    visual: {
-      text: "Sonniblick",
-    },
-  },
-  {
-    id: "option-3",
-    target: "target-3",
-    placed: false,
-    visual: {
-      text: "Jungfraujoch",
-    },
-  },
-]);
 const targets = ref([
+  /**
+   * Target: Object
+   * {
+      id: String,
+      content: empty Array,
+      solved: Boolean,
+      visual: {
+        text: String
+      }
+ }
+ */
   {
-    id: "target-1",
-    content: [],
-    solved: false,
-    visual: {
-      text: "3106 m",
-    },
+    id: "austria",
   },
   {
-    id: "target-2",
-    content: [],
-    solved: false,
-    visual: {
-      text: "2071 m",
-    },
+    id: "armenia",
   },
   {
-    id: "target-3",
-    content: [],
-    solved: false,
-    visual: {
-      text: "3560 m",
-    },
+    id: "swiss",
+  },
+  {
+    id: "usa",
+  },
+  {
+    id: "bolivia",
+  },
+  {
+    id: "spain",
+  },
+  {
+    id: "algeria",
+  },
+  {
+    id: "kenya",
+  },
+  {
+    id: "france",
+  },
+  {
+    id: "germany",
+  },
+  {
+    id: "china",
+  },
+  {
+    id: "nepal",
   },
 ]);
-*/
+
+for (let i = 0; i < targets.value.length; i++) {
+  targets.value[i].content = [];
+  targets.value[i].solved = false;
+  targets.value[i].visual = {
+    text: targets.value[i].id,
+  };
+}
 </script>
 
 <template>
@@ -143,7 +183,10 @@ const targets = ref([
 
     <!-- OPTIONS -->
     <div id="options-panel">
-      <h3 class="mb-[1em]">{{ props.title }}</h3>
+      <h3 class="mb-[1em]">
+        {{ props.data.titolo }}
+        <!-- Trascina le stazioni di alta quota nel punto corretto -->
+      </h3>
 
       <!-- <slot></slot> -->
       <div id="options-list" class="mb-8">
@@ -156,6 +199,7 @@ const targets = ref([
             :targets="targets"
           >
             <div class="option">
+              <Game01OptionIcon :id="optionData.target" />
               <p>{{ optionData.visual.text }}</p>
             </div>
           </DndOption>
@@ -177,7 +221,7 @@ const targets = ref([
 
 /* frame rows */
 #options-panel {
-  @apply bg-gray-200 flex flex-col justify-center items-center p-[2em];
+  @apply bg-blue-dark text-white flex flex-col justify-center items-center p-[2em];
 }
 #targets-panel {
   @apply flex flex-col justify-center items-center p-[2em];
@@ -193,7 +237,11 @@ const targets = ref([
 
 /* items */
 .option {
-  @apply p-[.5em] m-[.5em] border border-black border-[.1em] touch-auto;
+  @apply px-[1em] py-[.5em] m-[.5em] touch-auto;
+  @apply flex justify-center items-center;
+  @apply bg-orange text-white font-semibold;
+  @apply rounded-[1em]
+  /* @apply p-[.5em] m-[.5em] border border-black border-[.1em] touch-auto; */;
 }
 .target {
   @apply select-none pointer-events-none;

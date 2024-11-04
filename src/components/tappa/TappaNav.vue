@@ -4,6 +4,8 @@ const emit = defineEmits(["closeGame"]);
 import { AppState, TappaState, Nav } from "../../stores/appStore";
 import { TAPPE } from "../../config/tappe.js";
 
+import Button from "../ui/Button.vue";
+
 function toContent() {
   emit("closeGame");
 }
@@ -11,24 +13,40 @@ function toContent() {
 
 <template>
   <nav>
-    <button
-      class="secondary"
-      id="back-map"
-      v-if="!TappaState.isGame"
-      @click="Nav.goToMap"
-    >
-      Ritorna alla Mappa
-    </button>
-    <div id="tappa-title">Tappa {{ TappaState.currentIndex }}/11</div>
-    <!-- <div id="tappa-title">Tappa {{ AppState.currentTappa }}/11</div> -->
-    <button
+    <div id="back-map" v-if="!TappaState.isGame">
+      <Button
+        @click="
+          () => {
+            Nav.goToMap();
+          }
+        "
+      >
+        Ritorna alla Mappa
+      </Button>
+    </div>
+
+    <div id="tappa-title" v-if="!TappaState.isGame">
+      Tappa {{ TappaState.currentIndex }}/11
+    </div>
+
+    <div id="close-quiz" v-if="TappaState.isGame">
+      <Button
+        @click="
+          () => {
+            Nav.closeGame();
+          }
+        "
+      >
+        Chiudi il gioco
+      </Button>
+    </div>
+    <!-- <button
       class="secondary"
       id="close-quiz"
-      v-if="TappaState.isGame"
       @click="Nav.closeGame"
     >
       Chiudi il gioco
-    </button>
+    </button> -->
   </nav>
 </template>
 
