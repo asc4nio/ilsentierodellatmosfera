@@ -1,12 +1,12 @@
 import { reactive } from "vue";
 
 export const AppState = reactive({
-  currentView: "tappa", // welcome, map, tappa
+  currentView: "welcome", // welcome, map, tappa
 });
 
 export const TappaState = reactive({
-  currentIndex: 1, // null, Number
-  isGame: true, // Boolean
+  currentIndex: null, // null, Number
+  isGame: false, // Boolean
   isGameCompleted: false, // Boolean
   resetState() {
     console.log("reset TappaState");

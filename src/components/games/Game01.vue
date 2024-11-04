@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 
 const props = defineProps(["data"]);
 
@@ -156,10 +156,23 @@ for (let i = 0; i < targets.value.length; i++) {
     text: targets.value[i].id,
   };
 }
+
+const solvedCount = computed(() => {
+  return targets.value.filter((target) => target.solved).length;
+});
 </script>
 
 <template>
   <div id="game-view">
+    <!-- SOLVED COUNT -->
+    <div
+      class="p-[1em] bg-blue text-white absolute top-[1em] left-[1em]"
+      id="solved-count"
+    >
+      stazioni trovate
+      {{ solvedCount }} / {{ targets.length }}
+    </div>
+
     <!-- TARGETS -->
     <div id="targets-panel">
       <div id="targets-list">

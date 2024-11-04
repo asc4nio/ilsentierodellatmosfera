@@ -7,6 +7,8 @@ import { TAPPE } from "../../config/tappe.js";
 import { ref, watch } from "vue";
 import draggable from "vuedraggable";
 
+import Button from "../ui/Button.vue";
+
 import { game } from "./sort/Sort.js";
 
 const options = ref([
@@ -39,7 +41,14 @@ game.randomizeOrder(options);
       <div class="draggable-item">{{ element.name }} {{ element.id }}</div>
     </template>
   </draggable>
-  <button @click="game.submit(options)">Submit</button>
+  <Button
+    :onClick="
+      () => {
+        game.submit(options);
+      }
+    "
+    >Submit</Button
+  >
 </template>
 
 <style scoped>

@@ -12,8 +12,7 @@ const props = defineProps({
 
 <style scoped>
 button {
-  font-size: 1.75em;
-  /* // #f98949 */
+  font-size: 1.25em;
   @apply bg-orange px-[1.5em] py-[.75em] rounded-[1em];
   @apply text-white font-bold uppercase;
 
