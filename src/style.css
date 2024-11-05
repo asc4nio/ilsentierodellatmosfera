@@ -6,13 +6,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
 }
 
 
 #app {
   @apply fixed w-full h-full top-0 left-0;
-  background-color: gray;
+  @apply bg-white;
 } 
 
 @layer base {
@@ -33,10 +32,6 @@
     @apply text-[1.25em];
     
   }
-}
-
-button.secondary {
-  @apply bg-white text-black border font-normal;
 }
 
 /* @layer components {
