@@ -19,7 +19,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="view">
+  <div class="view" data-transition="tappa">
     <!-- TOP NAV -->
     <TappaNav></TappaNav>
     <!-- CONTENT -->

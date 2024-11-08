@@ -29,4 +29,8 @@ import { ghost } from "./DndGhost";
 /* .draggable-option {
   @apply p-2 border border-black touch-auto;
 } */
+
+.draggable-option > * {
+  @apply pointer-events-none touch-none;
+}
 </style>

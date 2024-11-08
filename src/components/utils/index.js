@@ -1,3 +1,5 @@
+import { DeviceState } from "../../stores/deviceStore";
+
 /* View in fullscreen */
 export function openFullscreen() {
   let elem = document.documentElement;
@@ -26,7 +28,7 @@ export function closeFullscreen() {
   }
 }
 
-export function updateSize() {
+export function updateAppSize() {
   // Dimensioni di riferimento
   const BASE_WIDTH = 1920;
   const BASE_HEIGHT = 1080;
@@ -51,5 +53,13 @@ export function updateSize() {
   }px`;
 
   // Ridimensiona il font in base alla scala
-  document.body.style.fontSize = `${16 * 1.25 * scale}px`;
+  const fontSize = 16 * 1.25 * scale;
+  document.body.style.fontSize = `${fontSize}px`;
+  // document.body.style.fontSize = `${16 * 1.25 * scale}px`;
+
+  console.log("updateAppSize", fontSize);
+  DeviceState.updateInfo();
 }
+
+export const sleep = (time) =>
+  new Promise((resolve) => setTimeout(resolve, time));

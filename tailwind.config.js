@@ -7,9 +7,14 @@ export default {
   ],
   // content: [],
   // purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  darkMode: true, // or 'media' or 'class'
+  // darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        cubano: ["Cubano"],
+        nunito: ["Nunito Sans 10pt"],
+      },
+    },
     colors: {
       transparent: "transparent",
       current: "currentColor",

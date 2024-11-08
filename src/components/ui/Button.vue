@@ -1,11 +1,12 @@
 <script setup>
 const props = defineProps({
   onClick: Function,
+  id: String,
 });
 </script>
 
 <template>
-  <button @click="props.onClick">
+  <button @click="props.onClick" :id="props.id">
     <slot></slot>
   </button>
 </template>

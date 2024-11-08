@@ -9,6 +9,7 @@ export const events = {
     console.log("click");
   },
   dragstart: (event, itemData) => {
+    // TODO: move ghost init to mousedown
     // init ghost
     ghost.init(event);
 
